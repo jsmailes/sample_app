@@ -35,6 +35,8 @@
 #define SAMPLE_APP_NOOP_CC           0
 #define SAMPLE_APP_RESET_COUNTERS_CC 1
 #define SAMPLE_APP_PROCESS_CC        2
+#define SAMPLE_APP_DO_SOMETHING_COOL 3
+#define SAMPLE_APP_TAKE_INT_CC       4
 
 /*************************************************************************/
 
@@ -47,6 +49,15 @@ typedef struct
 } SAMPLE_APP_NoArgsCmd_t;
 
 /*
+** Type definition (single uint16 argument)
+*/
+typedef struct
+{
+    CFE_MSG_CommandHeader_t CmdHeader; /**< \brief Command header */
+    uint16                  Value;
+} SAMPLE_APP_IntCmd_t;
+
+/*
 ** The following commands all share the "NoArgs" format
 **
 ** They are each given their own type name matching the command name, which
@@ -56,6 +67,9 @@ typedef struct
 typedef SAMPLE_APP_NoArgsCmd_t SAMPLE_APP_NoopCmd_t;
 typedef SAMPLE_APP_NoArgsCmd_t SAMPLE_APP_ResetCountersCmd_t;
 typedef SAMPLE_APP_NoArgsCmd_t SAMPLE_APP_ProcessCmd_t;
+typedef SAMPLE_APP_NoArgsCmd_t SAMPLE_APP_DoSomethingCool_t;
+
+typedef SAMPLE_APP_IntCmd_t    SAMPLE_APP_TakeIntCmd_t;
 
 /*************************************************************************/
 /*

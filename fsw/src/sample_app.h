@@ -109,6 +109,8 @@ int32 SAMPLE_APP_ReportHousekeeping(const CFE_MSG_CommandHeader_t *Msg);
 int32 SAMPLE_APP_ResetCounters(const SAMPLE_APP_ResetCountersCmd_t *Msg);
 int32 SAMPLE_APP_Process(const SAMPLE_APP_ProcessCmd_t *Msg);
 int32 SAMPLE_APP_Noop(const SAMPLE_APP_NoopCmd_t *Msg);
+int32 SAMPLE_APP_DoSomethingCool(const SAMPLE_APP_DoSomethingCool_t *Msg);
+int32 SAMPLE_APP_TakeInt(const SAMPLE_APP_TakeIntCmd_t *Msg);
 void  SAMPLE_APP_GetCrc(const char *TableName);
 
 int32 SAMPLE_APP_TblValidationFunc(void *TblData);

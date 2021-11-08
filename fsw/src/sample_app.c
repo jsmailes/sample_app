@@ -294,6 +294,22 @@ void SAMPLE_APP_ProcessGroundCommand(CFE_SB_Buffer_t *SBBufPtr)
 
             break;
 
+        case SAMPLE_APP_DO_SOMETHING_COOL:
+            if (SAMPLE_APP_VerifyCmdLength(&SBBufPtr->Msg, sizeof(SAMPLE_APP_DoSomethingCool_t)))
+            {
+                SAMPLE_APP_DoSomethingCool((SAMPLE_APP_DoSomethingCool_t *)SBBufPtr);
+            }
+
+            break;
+
+        case SAMPLE_APP_TAKE_INT_CC:
+            if (SAMPLE_APP_VerifyCmdLength(&SBBufPtr->Msg, sizeof(SAMPLE_APP_TakeIntCmd_t)))
+            {
+                SAMPLE_APP_TakeInt((SAMPLE_APP_TakeIntCmd_t *)SBBufPtr);
+            }
+
+            break;
+
         /* default case already found during FC vs length test */
         default:
             CFE_EVS_SendEvent(SAMPLE_APP_COMMAND_ERR_EID, CFE_EVS_EventType_ERROR,
@@ -419,6 +435,40 @@ int32 SAMPLE_APP_Process(const SAMPLE_APP_ProcessCmd_t *Msg)
     return CFE_SUCCESS;
 
 } /* End of SAMPLE_APP_ProcessCC */
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
+/*                                                                            */
+/* SAMPLE_APP_DoSomethingCool -- SAMPLE NOOP commands                         */
+/*                                                                            */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
+int32 SAMPLE_APP_DoSomethingCool(const SAMPLE_APP_DoSomethingCool_t *Msg)
+{
+
+    SAMPLE_APP_Data.CmdCounter++;
+
+    CFE_EVS_SendEvent(SAMPLE_APP_COMMANDCOOL_INF_EID, CFE_EVS_EventType_INFORMATION, "SAMPLE: Super awesome cool command %s",
+                      SAMPLE_APP_VERSION);
+
+    return CFE_SUCCESS;
+
+} /* End of SAMPLE_APP_DoSomethingCool */
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
+/*                                                                            */
+/* SAMPLE_APP_TakeInt -- Take integer and print to log                        */
+/*                                                                            */
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
+int32 SAMPLE_APP_TakeInt(const SAMPLE_APP_TakeIntCmd_t *Msg)
+{
+
+    SAMPLE_APP_Data.CmdCounter++;
+
+    CFE_EVS_SendEvent(SAMPLE_APP_COMMANDINT_INF_EID, CFE_EVS_EventType_INFORMATION, "SAMPLE: Took integer with value %u! %s",
+                      Msg->Value, SAMPLE_APP_VERSION);
+
+    return CFE_SUCCESS;
+
+} /* End of SAMPLE_APP_DoSomethingCool */
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * **/
 /*                                                                            */
